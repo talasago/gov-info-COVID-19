@@ -17,7 +17,7 @@ provider:
       Resource: "*"
 
 functions:
-  cal-regist:
+  gov-info-COVID-19_RT:
     handler: handler.main
     events:
       - schedule:
