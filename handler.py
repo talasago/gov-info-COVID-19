@@ -3,6 +3,8 @@ import json
 import os
 import sys
 import re
+import logging
+import traceback
 sys.path.append(os.path.join(os.path.dirname(__file__), 'lib'))
 from lib import tweepy
 
@@ -34,11 +36,12 @@ def retweet(tweepy_api):
         if exclude_exp_obj.match(tweet.text):
             id = tweet.id
             print(tweet.text)
+            print(tweet.id)
 
             try:
-              tweepy_api.create_favorite(id)
-              tweepy_api.retweet(id)
+                tweepy_api.create_favorite(id)
+                tweepy_api.retweet(id)
             # 例外発生はログだけ残して処理停止はしない
             except:
-              print(sys.exc_info())
-              pass
+                logging.error(traceback.format_exc())
+                pass
