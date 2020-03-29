@@ -21,7 +21,7 @@ functions:
   RT_bot:
     handler: handler.main
     events:
-      - schedule: cron(*/5 * * * ? *)
+      - schedule: cron(*/20 * * * ? *)
     environment:
       CONSUMER_KEY: ${self:custom.otherfile.environment.${self:provider.stage}.CONSUMER_KEY}
       CONSUMER_SECRET: ${self:custom.otherfile.environment.${self:provider.stage}.CONSUMER_SECRET}
