@@ -2,7 +2,7 @@
 lib
 node_modules
 __pycache__
-oauth.ini
+env.yml
 *.log
 # Distribution / packaging
 .Python

@@ -10,10 +10,10 @@ from lib import tweepy
 OAUTH_INI = configparser.ConfigParser()
 OAUTH_INI.read('oauth.ini', encoding='utf-8')
 # TODO:lambdaの環境変数に都県を記載
-CONSUMER_KEY = OAUTH_INI['twitter_API']['CONSUMER_KEY']
-CONSUMER_SECRET = OAUTH_INI['twitter_API']['CONSUMER_SECRET']
-ACCESS_TOKEN = OAUTH_INI['twitter_API']['ACCESS_TOKEN']
-ACCESS_TOKEN_SECRET = OAUTH_INI['twitter_API']['ACCESS_TOKEN_SECRET']
+CONSUMER_KEY = os.environ['CONSUMER_KEY']
+CONSUMER_SECRET = os.environ['CONSUMER_SECRET']
+ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
+ACCESS_TOKEN_SECRET = os.environ['ACCESS_TOKEN_SECRET']
 
 
 def main(event, context):
@@ -38,7 +38,6 @@ def retweet(tweepy_api):
             try:
               tweepy_api.create_favorite(id)
               tweepy_api.retweet(id)
-              print(tweet.text)
             # 例外発生はログだけ残して処理停止はしない
             except:
               print(sys.exc_info())

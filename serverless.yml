@@ -8,18 +8,22 @@ provider:
   runtime: python3.8
   stage: prod
   region: ap-northeast-1
-  iamRoleStatements:
-    - Effect: "Allow"
-       # TODO: 権限は要確認
-      Action:
-        - "lambda:*"
-        - "dynamodb:*"
-      Resource: "*"
+
+custom:
+  defaultStage: prod
+  profiles:
+    prod: sls
+  otherfile:
+    environment:
+      prod: ${file(env.yml)}
 
 functions:
-  gov-info-COVID-19_RT:
+  RT_bot:
     handler: handler.main
     events:
-      - schedule:
-        rate: cron(*/5 * * * ? *)
-        enabled: false
+      - schedule: cron(*/5 * * * ? *)
+    environment:
+      CONSUMER_KEY: ${self:custom.otherfile.environment.${self:provider.stage}.CONSUMER_KEY}
+      CONSUMER_SECRET: ${self:custom.otherfile.environment.${self:provider.stage}.CONSUMER_SECRET}
+      ACCESS_TOKEN: ${self:custom.otherfile.environment.${self:provider.stage}.ACCESS_TOKEN}
+      ACCESS_TOKEN_SECRET: ${self:custom.otherfile.environment.${self:provider.stage}.ACCESS_TOKEN_SECRET}
