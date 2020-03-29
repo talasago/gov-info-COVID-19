@@ -28,7 +28,7 @@ def tweepy_oath():
 
 # 自分のタイムラインから対象の単語が入っているツイートをリツイート
 def retweet(tweepy_api):
-    exclude_exp_obj = re.compile(r'.*(コロナ|COVID).*$')
+    exclude_exp_obj = re.compile(r'.*(コロナ|COVID)(.|\s)*$')
 
     for tweet in tweepy_api.home_timeline(count=200):
         if exclude_exp_obj.match(tweet.text):
