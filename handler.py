@@ -28,15 +28,17 @@ def tweepy_oath():
 
 # 自分のタイムラインから対象の単語が入っているツイートをリツイート
 def retweet(tweepy_api):
-    exclude_exp_obj = re.compile(r'.*[コロナ|COVID].*$')
+    exclude_exp_obj = re.compile(r'.*(コロナ|COVID).*$')
 
-    for tweet in tweepy_api.home_timeline(count=50):
+    for tweet in tweepy_api.home_timeline(count=200):
         if exclude_exp_obj.match(tweet.text):
             id = tweet.id
+            print(tweet.text)
 
             try:
               tweepy_api.create_favorite(id)
               tweepy_api.retweet(id)
+              print(tweet.text)
             # 例外発生はログだけ残して処理停止はしない
             except:
               print(sys.exc_info())
